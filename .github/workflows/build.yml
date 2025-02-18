@@ -52,6 +52,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+        pip install pyinstaller
 
     - name: Build executable with PyInstaller (macOS)
       run: |
@@ -78,7 +79,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-
+        pip install pyinstaller
     - name: Build executable with PyInstaller (Windows)
       run: |
         pyinstaller --onefile --add-data "common_old.onnx;ddddocr" main.py
