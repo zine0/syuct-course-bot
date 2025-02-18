@@ -101,7 +101,7 @@ jobs:
       - name: Create GitHub release
         id: create_release
         run: |
-          VERSION=$(git describe --tags --abbrev=0)
+          VERSION=$(date +'%Y%m%d')
           gh release create $VERSION dist/* --title "Release $VERSION" --notes "Release $VERSION of the application"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
