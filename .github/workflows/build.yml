@@ -78,7 +78,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        choco install python3 # 安装 Python
 
     - name: Build executable with PyInstaller (Windows)
       run: |
