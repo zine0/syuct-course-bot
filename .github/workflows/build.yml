@@ -32,7 +32,7 @@ jobs:
         pyinstaller --onefile --add-data "common_old.onnx:ddddocr" main.py
 
     - name: Upload Linux executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: linux-executable
         path: dist/main  # 上传生成的 Linux 可执行文件
@@ -58,7 +58,7 @@ jobs:
         pyinstaller --onefile --add-data "common_old.onnx:ddddocr" main.py
 
     - name: Upload macOS executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: macos-executable
         path: dist/main  # 上传生成的 macOS 可执行文件
@@ -85,7 +85,7 @@ jobs:
         pyinstaller --onefile --add-data "common_old.onnx;ddddocr" main.py
 
     - name: Upload Windows executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: windows-executable
         path: dist/main.exe  # 上传生成的 Windows 可执行文件
