@@ -1,2 +1,3 @@
-./code.jpg
-./.idea
+/build/
+/dist/
+/main.spec
