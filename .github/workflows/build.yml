@@ -35,7 +35,7 @@ jobs:
       with:
         name: linux-executable
         path: dist/main
-        rename: main_linux
+        rename: main_linux  # 明确重命名为 main_linux
 
   build-macos:
     runs-on: macos-latest
@@ -62,7 +62,7 @@ jobs:
       with:
         name: macos-executable
         path: dist/main
-        rename: main_mac
+        rename: main_macos  # 明确重命名为 main_macos
 
   build-windows:
     runs-on: windows-latest
@@ -89,7 +89,7 @@ jobs:
       with:
         name: windows-executable
         path: dist/main.exe
-        rename: main_win.exe
+        rename: main_windows.exe  # 明确重命名为 main_windows.exe
 
   release:
     needs: [build-linux, build-macos, build-windows]
@@ -119,8 +119,8 @@ jobs:
         VERSION=$(date +'%Y%m%d')
         gh release create $VERSION \
           "release-artifacts/main_linux" \
-          "release-artifacts/main_mac" \   
-          "release-artifacts/main_win.exe" \
+          "release-artifacts/main_macos" \
+          "release-artifacts/main_windows.exe" \
           --title "Release $VERSION" \
           --notes "Release $VERSION of the application"
       env:
