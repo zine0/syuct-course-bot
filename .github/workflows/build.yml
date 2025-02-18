@@ -29,13 +29,13 @@ jobs:
     - name: Build executable with PyInstaller (Linux)
       run: |
         pyinstaller --onefile --add-data "common_old.onnx:ddddocr" main.py
+        mv dist/main dist/main_linux
 
     - name: Upload Linux executable
       uses: actions/upload-artifact@v4
       with:
         name: linux-executable
         path: dist/main
-        rename: main_linux  # 明确重命名为 main_linux
 
   build-macos:
     runs-on: macos-latest
@@ -56,13 +56,13 @@ jobs:
     - name: Build executable with PyInstaller (macOS)
       run: |
         pyinstaller --onefile --add-data "common_old.onnx:ddddocr" main.py
+        mv dist/main dist/main_macos
 
     - name: Upload macOS executable
       uses: actions/upload-artifact@v4
       with:
         name: macos-executable
         path: dist/main
-        rename: main_macos  # 明确重命名为 main_macos
 
   build-windows:
     runs-on: windows-latest
@@ -83,35 +83,26 @@ jobs:
     - name: Build executable with PyInstaller (Windows)
       run: |
         pyinstaller --onefile --add-data "common_old.onnx;ddddocr" main.py
+        mv dist/main.exe dist/main_windows.exe
 
     - name: Upload Windows executable
       uses: actions/upload-artifact@v4
       with:
         name: windows-executable
         path: dist/main.exe
-        rename: main_windows.exe  # 明确重命名为 main_windows.exe
 
   release:
     needs: [build-linux, build-macos, build-windows]
     runs-on: ubuntu-latest
     steps:
-    - name: Download Linux Artifact
+    - name: Download Artifacts
       uses: actions/download-artifact@v4
       with:
-        name: linux-executable
         path: release-artifacts
 
-    - name: Download macOS Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: macos-executable
-        path: release-artifacts
+    - name: Show
+      run: ls -R release-artifacts
 
-    - name: Download Windows Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: windows-executable
-        path: release-artifacts
 
     - name: Create GitHub release
       id: create_release
