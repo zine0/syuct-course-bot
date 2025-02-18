@@ -1,0 +1,91 @@
+name: Build Executable with PyInstaller
+
+on:
+  push:
+    branches:
+      - main  # 在推送到主分支时触发工作流
+  pull_request:
+    branches:
+      - main  # 在向主分支创建 PR 时触发工作流
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest  # 在最新版本的 Ubuntu 上运行
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'  # 设置 Python 版本
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pyinstaller
+        sudo apt-get install -y build-essential libssl-dev libffi-dev python3-dev  # 安装编译依赖
+
+    - name: Build executable with PyInstaller (Linux)
+      run: |
+        pyinstaller --onefile --add-data "common_old.onnx:ddddocr" main.py
+
+    - name: Upload Linux executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: linux-executable
+        path: dist/main  # 上传生成的 Linux 可执行文件
+
+  build-macos:
+    runs-on: macos-latest  # 在最新版本的 macOS 上运行
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'  # 设置 Python 版本
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Build executable with PyInstaller (macOS)
+      run: |
+        pyinstaller --onefile --add-data "common_old.onnx:ddddocr" main.py
+
+    - name: Upload macOS executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: macos-executable
+        path: dist/main  # 上传生成的 macOS 可执行文件
+
+  build-windows:
+    runs-on: windows-latest  # 在最新版本的 Windows 上运行
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'  # 设置 Python 版本
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        choco install python3 # 安装 Python
+
+    - name: Build executable with PyInstaller (Windows)
+      run: |
+        pyinstaller --onefile --add-data "common_old.onnx;ddddocr" main.py
+
+    - name: Upload Windows executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows-executable
+        path: dist/main.exe  # 上传生成的 Windows 可执行文件
