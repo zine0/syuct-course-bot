@@ -16,7 +16,7 @@
 你可以使用以下命令安装依赖项：
 
 ```bash
-pip install requests beautifulsoup4 Pillow ddddocr
+pip install -r requirements.txt
 ```
 
 ## 使用方法
