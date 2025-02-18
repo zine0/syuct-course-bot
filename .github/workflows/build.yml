@@ -110,7 +110,9 @@ jobs:
       run: |
         VERSION=$(date +'%Y%m%d')
         gh release create $VERSION \
-          "release-artifacts/*" \
+          "release-artifacts/main_linux" \
+          "release-artifacts/main_macos" \
+          "release-artifacts/main_windows.exe" \
           --title "Release $VERSION" \
           --notes "Release $VERSION of the application"
       env:
