@@ -41,6 +41,8 @@ class Spider:
         }
         
         self.__name = None
+        self.__uid = None
+        self.__password = None
         self.__real_base_url: str = ''
         self.__base_url: str = 'https://jws.syuct.edu.cn/'
         self.__headers: dict[str, str] = {
@@ -173,6 +175,9 @@ class Spider:
     
     def run(self):
         config = json.load(open('config.json'))
+        self.__name = config['name']
+        self.__uid = config['uid']
+        self.__password = config['password']
         if self.login(config["uid"],config["password"]):
             lessons = config['lessons']
             self.__enter_lessons_first()
