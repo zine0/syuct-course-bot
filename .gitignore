@@ -4,3 +4,5 @@
 config.json
 config_yzy.json
 config_bl.json
+/.venv
+/.idea
